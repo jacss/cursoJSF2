@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+      
+      <h:head>
+          <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+          <title>Eventos e Ações</title>
+      </h:head>
+      <h:body>
+        
+           <h:form>
+           <h:commandLink value="Ajuda sobre esta página" action="#{gerenProdutoBen.obterAjunda}">
+           	<f:actionListener binding="#{registroCliqueBotaoListener}"/>
+           </h:commandLink>
+           <br/><br/>
+              Nome:
+              <h:inputText value="#{gerenProdutoBen.produto.nome}"/>
+              <br/>
+              Fabricante:
+              <h:inputText value="#{gerenProdutoBen.produto.fabricante}"/>
+              <br/>
+              Categoria:
+              <h:inputText value="#{gerenProdutoBen.produto.categoria}"/>
+              <br/>
+              <h:commandButton value="Listar" action="#{gerenProdutoBen.incluirProduto}"
+              actionListener="#{gerenProdutoBen.verificarInclusao}">
+              	<f:actionListener binding="#{registroCliqueBotaoListener}"/>
+           </h:commandButton>
+           </h:form>
+               <br/>
+           <h:form>
+             Pesquisa por Produto
+                 <h:inputText value="#{gerenProdutoBen.nomePesquisa}"
+                 valueChangeListener="#{gerenProdutoBen.nomePesquisaAlterado}"
+                 onchange="submit()"/>
+                
+           </h:form>
+           <h:form>
+              <ol>
+                <ui:repeat var="p" value="#{gerenProdutoBen.produtosFiltrados}">
+                <li>
+                    #{p.nome} - #{p.fabricante} - #{p.categoria}
+                    
+                    <h:commandButton value="Excluir" action="#{gerenProdutoBen.excluir}">
+                    <f:setPropertyActionListener value="#{p}" target="#{gerenProdutoBen.produtoSelecionado}"/>
+                    </h:commandButton>
+                    
+                </li>
+                </ui:repeat>
+               </ol>
+             </h:form>
+      </h:body>
+</html>
